@@ -25,6 +25,19 @@ defmodule HousePriceCalculatorWeb.PriceControllerTest do
             end
         end
 
+        test "unsuccessful calculation returns error", %{conn: conn} do
+            conversion_result = %PriceRequest{ price: 100000, from: "01/01/2000", to: "01/12/2016", area: "Islington"}
+            price_response = ["Some more errors"]
+
+            with_mock(PriceRequest, [convert: fn(_params) -> {:ok, conversion_result} end]) do
+                with_mock(PricePredictor, [calculate: fn(conversion_result) -> {:error, price_response} end]) do
+                    actual = Sut.index(conn, @valid_price_request)
+                    assert actual.status == 400
+                    assert actual.resp_body == "[\"Some more errors\"]"
+                end
+            end
+        end
+
         test "successful calculation returns ok and a response", %{conn: conn} do
             conversion_result = %PriceRequest{ price: 100000, from: "01/01/2000", to: "01/12/2016", area: "Islington"}
             price_response = %PriceResponse{price: 10000, from: "01/01/2000", to: "01/01/2016", area: "Islington", predicted_price: 200000}
