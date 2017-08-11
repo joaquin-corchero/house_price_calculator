@@ -30,7 +30,7 @@ defmodule HousePriceCalculatorWeb.PriceControllerTest do
             price_response = ["Some more errors"]
 
             with_mock(PriceRequest, [convert: fn(_params) -> {:ok, conversion_result} end]) do
-                with_mock(PricePredictor, [calculate: fn(conversion_result) -> {:error, price_response} end]) do
+                with_mock(PricePredictor, [calculate: fn(_conversion_result) -> {:error, price_response} end]) do
                     actual = Sut.index(conn, @valid_price_request)
                     assert actual.status == 400
                     assert actual.resp_body == "[\"Some more errors\"]"
@@ -43,7 +43,7 @@ defmodule HousePriceCalculatorWeb.PriceControllerTest do
             price_response = %PriceResponse{price: 10000, from: "01/01/2000", to: "01/01/2016", area: "Islington", predicted_price: 200000}
 
             with_mock(PriceRequest, [convert: fn(_params) -> {:ok, conversion_result} end]) do
-                with_mock(PricePredictor, [calculate: fn(conversion_result) -> {:ok, price_response} end]) do
+                with_mock(PricePredictor, [calculate: fn(_conversion_result) -> {:ok, price_response} end]) do
                     actual = Sut.index(conn, @valid_price_request)
                     assert actual.status == 200
                     assert actual.resp_body == "{\"to\":\"01/01/2016\",\"price\":10000,\"predicted_price\":200000,\"from\":\"01/01/2000\",\"area\":\"Islington\"}"
