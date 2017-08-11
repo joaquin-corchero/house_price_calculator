@@ -37,7 +37,8 @@ defmodule HousePriceCalculator.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:mock, "~> 0.2.1"},
-      {:timex, "~> 3.1"}
+      {:timex, "~> 3.1"},
+      {:csv, "~> 2.0"}
     ]
   end
 end
