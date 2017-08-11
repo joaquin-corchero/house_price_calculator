@@ -3,14 +3,9 @@ defmodule HousePriceCalculator.CsvReader do
 
     def get_indexes(price_request) do
         file_indexes = read(price_request)
-        IO.inspect "---------------------------------"
-        IO.inspect "---------------------------------"
-        IO.inspect file_indexes
-        IO.inspect "---------------------------------"
-        IO.inspect "---------------------------------"
         cond do
             Enum.count(file_indexes) != 2 -> {:error, []}
-            :true -> Enum.map(file_indexes, fn(i) -> i.index end)
+            :true -> {:ok, file_indexes}
         end
     end
 
@@ -20,6 +15,7 @@ defmodule HousePriceCalculator.CsvReader do
                  result == :ok && record["RegionName"] == price_request.area && (record["Date"] == price_request.from || record["Date"] == price_request.to)
              end)
         |> Enum.take(2)
-        |> Enum.map(fn({_, record}) -> record end)
+        |> Enum.map(fn({_, record}) -> Float.parse(record["Index"]) end)
+        |> Enum.map(fn({number, _}) -> number end)
     end
 end

@@ -44,5 +44,14 @@ defmodule HousePriceCalculator.CsvReaderTests do
                 assert indexes == []
             end
         end
+
+        test "indexes can be returned" do
+            with_mock CSV, [decode: fn(_stream, _options) -> @file_content end] do
+                {result, indexes} = Sut.get_indexes(@price_request)
+
+                assert result == :ok
+                assert indexes == [40.85675677, 41.7803169]
+            end
+        end
     end
 end
