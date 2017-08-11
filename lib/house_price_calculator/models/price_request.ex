@@ -41,7 +41,14 @@ defmodule HousePriceCalculator.PriceRequest do
     end
 
     defp validate_price(price) do
-        {number, string_part} = Float.parse(price)
+        result = Float.parse(price)
+        cond do
+            result == :error -> {:error, "Price must be a number"}
+            true -> process_parse_response(result)
+        end
+    end
+
+    defp process_parse_response({number, string_part}) do
         cond do
             String.length(string_part) == 0 -> {:ok, number}
             true -> {:error, "Price must be a number"}

@@ -10,6 +10,13 @@ defmodule HousePriceCalculator.PriceRequestTest do
             assert errors == ["Price request input in wrong format"]
         end
 
+        test ("when price is invalid error is returned") do
+            input = %{"price" => "invalid price", "from" => "01/2000", "to" => "01/2016", "area" => "Islington"}
+            {result, errors} = Sut.convert(input)
+
+            assert result == :error
+            assert errors == ["Price must be a number"]
+        end
 
         test ("when From is invalid error is returned") do
             input = %{"price" => "10000", "from" => "01/01/2000", "to" => "01/2016", "area" => "Islington"}
