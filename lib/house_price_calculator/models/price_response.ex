@@ -9,6 +9,6 @@ defmodule HousePriceCalculator.PriceResponse do
     ]
 
     def create(price_request, predicted_price) do
-        Map.put(price_request, :predicted_price, predicted_price)
+        {:ok, Map.put(price_request, :predicted_price, predicted_price)}
     end
 end
