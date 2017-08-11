@@ -40,10 +40,22 @@ defmodule HousePriceCalculator.PriceRequest do
         {:error, errors}
     end
 
-    defp validate_price(price) when is_float(price), do: {:ok, price}
-    defp validate_price(price), do: {:error, "Price must be a number"}
+    defp validate_price(price) do
+        {number, string_part} = Float.parse(price)
+        cond do
+            String.length(string_part) == 0 -> {:ok, number}
+            true -> {:error, "Price must be a number"}
+        end
+    end
     
-    defp validate_date(date, field_name), do: {:ok, date}
+    defp validate_date(date, field_name) do
+        date = "01/" <> date
+        {result, _} = Timex.parse(date, "{D}/{0M}/{YYYY}")
+        cond do
+            result == :ok -> {:ok, date}
+            true -> {:error, field_name <> " has invalid format MM/YYYY" }
+        end
+    end
     
     defp validate_area(area), do: {:ok, area}
     
