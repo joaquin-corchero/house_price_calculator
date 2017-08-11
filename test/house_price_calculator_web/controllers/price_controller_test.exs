@@ -6,7 +6,7 @@ defmodule HousePriceCalculatorWeb.PriceControllerTest do
     alias HousePriceCalculator.PricePredictor
     import Mock
 
-    describe "index" do
+    describe "when calculating a price" do
 
         @valid_price_request  %{"price" => "10000", "from" => "01/2000", "to" => "01/2016", "area" => "Islington"}
         @invalid_price_request  %{"price" => "no price", "from" => "01/2000", "to" => "01/2016", "area" => "Islington"}

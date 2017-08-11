@@ -8,6 +8,10 @@ defmodule HousePriceCalculator.PriceRequest do
     ]
 
     def convert(%{"price" => price, "from" => from, "to" => to, "area" => area} = params) do
-        params
+        
+    end
+
+    def convert(_) do
+        {:error, ["Price request input in wrong format"]}
     end
 end
