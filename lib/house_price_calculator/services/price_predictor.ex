@@ -13,6 +13,6 @@ defmodule HousePriceCalculator.PricePredictor do
 
     defp execute_calculation(price_request, indexes) do
         calculated_price = PriceCalculator.calculate(indexes, price_request.price)
-        PriceResponse.create(price_request, calculated_price)
+        PriceResponse.create(price_request, calculated_price, indexes)
     end
 end

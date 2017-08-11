@@ -33,7 +33,11 @@ defmodule HousePriceCalculator.PricePredictorTest do
             with_mock(CsvReader, [get_indexes: fn(@price_request) -> {:ok, indexes} end]) do
                 with_mock(PriceCalculator, [calculate: fn(_indexes, _price) -> @predicted_price end]) do
                     actual = Sut.calculate(@price_request)
-                    expected =  {:ok, Map.put(@price_request, :predicted_price, @predicted_price)}
+                    
+                    expected_value = @price_request 
+                        |> Map.put(:predicted_price, @predicted_price) 
+                        |> Map.put(:indexes, indexes) 
+                    expected =  {:ok, expected_value}
 
                     assert called PriceCalculator.calculate(indexes, @price_request.price)
                     assert actual == expected
