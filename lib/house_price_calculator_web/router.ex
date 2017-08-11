@@ -7,5 +7,7 @@ defmodule HousePriceCalculatorWeb.Router do
 
   scope "/api", HousePriceCalculatorWeb do
     pipe_through :api
+
+    get "/prices", PriceController, :index
   end
 end
