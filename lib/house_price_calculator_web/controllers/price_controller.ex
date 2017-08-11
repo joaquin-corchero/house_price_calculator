@@ -13,7 +13,7 @@ defmodule HousePriceCalculatorWeb.PriceController do
 
     def index(conn, _) do
         conn |>
-        return_errors ["Incorrect parameters, try api/price?price=100000&from=01/2000&to=01/2016&area=islington"]
+        return_errors ["Incorrect parameters, try api/price?price=100000&from=01/2000&to=01/2016&area=Islington"]
     end
 
     defp return_errors(conn, error_list) do
