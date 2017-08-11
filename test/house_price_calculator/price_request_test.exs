@@ -34,6 +34,14 @@ defmodule HousePriceCalculator.PriceRequestTest do
             assert errors == ["To has invalid format MM/YYYY"]
         end
 
+        test ("when Area is invalid error is returned") do
+            input = %{"price" => "10000", "from" => "01/2000", "to" => "01/2016", "area" => "is"}
+            {result, errors} = Sut.convert(input)
+
+            assert result == :error
+            assert errors == ["Area must be longer than 2 characters"]
+        end
+
         # test ("when there are validation errors all of them are returned") do
         #     input = %{"price" => "hello", "from" => "01/01/2000", "to" => "01ir", "area" => "ad"}
         #     {result, errors} = Sut.convert(input)

@@ -64,6 +64,11 @@ defmodule HousePriceCalculator.PriceRequest do
         end
     end
     
-    defp validate_area(area), do: {:ok, area}
+    defp validate_area(area) do
+        cond do
+            area |> String.length > 2 -> {:ok, area |> String.capitalize}
+            true -> {:error, "Area must be longer than 2 characters"}
+        end
+    end
     
 end
