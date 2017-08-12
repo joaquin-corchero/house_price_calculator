@@ -8,7 +8,7 @@
 - Go to the house_price_calculator directory and type mix deps.get, that will download all the dependencies
 - You can run the tests by running mix test
 - Run the api by typing mix phx.server
-- Go [here] (localhost:4000/api/prices?price=100000&from=01/2000&to=01/2016&area=islington) and you should see some results.
+- Go to http://localhost:4000/api/prices?price=100000&from=01/2000&to=01/2016&area=islington and you should see some results.
 
 ## What is missing:
 - CSV reader doesn't seem to perform too well, will depend on your machine.
